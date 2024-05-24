@@ -81,6 +81,7 @@ function ConnectSite() {
       input.setAttribute('type', field.type);
       input.setAttribute('name', field.name);
       input.setAttribute('required', field.required);
+  
       container.appendChild(label);
       container.appendChild(input);
       container.appendChild(document.createElement('br'));
