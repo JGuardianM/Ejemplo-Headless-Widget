@@ -8,6 +8,7 @@ const configuration={
 locale: "es",
 }
 let id_site="";
+let is_bluetooth =false;
 
 function GetSite() {
   GetToken();
@@ -101,6 +102,23 @@ function ConnectSite() {
           container.appendChild(document.createElement('br'));
           container.appendChild(document.createElement('br'));
         }
+        if(is_bluetooth==true){
+          const input = document.createElement('input');
+          input.setAttribute('type', 'password');
+          input.setAttribute('name', 'token');
+          input.setAttribute('value', 'OK');
+          input.setAttribute('disbled', 'true');
+          container.appendChild(input);
+          container.appendChild(document.createElement('br'));
+          const botonTwofa = document.createElement('button');
+          botonTwofa.type = 'button'; 
+          botonTwofa.textContent = 'Enviar'; 
+          botonTwofa.addEventListener('click', () => {
+            enviarTwofa(CredentialStatus); 
+          });
+          container.appendChild(document.createElement('br'));
+          container.appendChild(botonTwofa);
+        }
         if (field.name === "bluetooth_device" && field.label === "N") {
           const input = document.createElement('input');
           input.setAttribute('type', field[0].type);
@@ -116,6 +134,8 @@ function ConnectSite() {
           container.appendChild(document.createElement('br'));
           container.appendChild(botonTwofa);
           break;
+        }else if (field.name === "bluetooth_device" && field.label === "S"){
+          is_bluetooth =true;
         }
       }
     }else{
@@ -186,6 +206,10 @@ function ConnectSite() {
       valores["challenge"]="challenge";
       valores["connection"]="connection";
       valores["bluetooth_device"]="bluetooth_device";
+    }
+    if(id_site=="57239fae78480601038b4567" && is_bluetooth==true){
+      valores["message_encrypted"]="message_encrypted";
+      is_bluetooth=false;
     }
     return valores;
   }
